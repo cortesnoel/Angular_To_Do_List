@@ -19,9 +19,5 @@ jobs:
     steps:
       - checkout
       - heroku/install
-      - run:
-          name: Login to Heroku
-          command: |
-            heroku login
-      - heroku/deploy-via-git:
+      - heroku/deploy-via-git: # uses default parameters set as Environment Variables in CircleCI build
           only-branch: master
