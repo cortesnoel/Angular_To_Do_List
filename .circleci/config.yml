@@ -5,7 +5,7 @@ orbs:
 workflows:
   heroku_deploy:
     jobs:
-      - heroku/deploy-via-git
+      - deploy
 
 jobs:
   build:
@@ -14,3 +14,14 @@ jobs:
     steps:
       - checkout # check out the code in the project directory
       - run: echo "hello world" # run the `echo` command to display hello world
+  deploy:
+    executor: heroku/default
+    steps:
+      - checkout
+      - heroku/install
+      - run:
+          name: Login to Heroku
+          command: |
+            heroku login
+      - heroku/deploy-via-git:
+          only-branch: master
