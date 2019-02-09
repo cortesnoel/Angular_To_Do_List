@@ -1,4 +1,12 @@
-version: 2
+version: 2.1
+
+orbs:
+  heroku: circleci/heroku@0.0.4
+workflows:
+  heroku_deploy:
+    jobs:
+      - heroku/deploy-via-git
+
 jobs:
   build:
     docker: # use the docker executor type; machine and macos executors are also supported
