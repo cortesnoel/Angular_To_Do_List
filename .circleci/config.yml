@@ -2,14 +2,18 @@ version: 2.1
 
 orbs:
   heroku: circleci/heroku@0.0.4
-  
+
 workflows:
   heroku_deploy:
     jobs:
-      - deploy
       - build
+      - deploy
 
 jobs:
+  build:
+    filters:
+      branches:
+        only: master
   deploy:
     executor: heroku/default
     steps:
@@ -17,7 +21,3 @@ jobs:
       - heroku/install
       - heroku/deploy-via-git: # uses default parameters set as Environment Variables in CircleCI build
           only-branch: master
-  build:
-    filters:
-      branches:
-        only: master
